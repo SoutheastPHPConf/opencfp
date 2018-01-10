@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use Monolog\Logger;
 use OpenCFP\Environment;
 use OpenCFP\Kernel;
 use Symfony\Component\Debug\Debug;
@@ -23,6 +24,15 @@ $environment = Environment::fromServer($_SERVER);
 
 if (!$environment->isProduction()) {
     Debug::enable();
+}
+
+if ($environment->isProduction()) {
+    $monolog = new Logger('OpenCfp Log');
+    $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
+    $formatter = new \Monolog\Formatter\LineFormatter('%channel%.%level_name%: %message% %extra%');
+    $syslog->setFormatter($formatter);
+
+    $monolog->pushHandler($syslog);
 }
 
 $kernel   = new Kernel((string) $environment, !$environment->isProduction());
