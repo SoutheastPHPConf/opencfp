@@ -26,15 +26,6 @@ if (!$environment->isProduction()) {
     Debug::enable();
 }
 
-if ($environment->isProduction()) {
-    $monolog = new Logger('OpenCfp Log');
-    $syslog = new \Monolog\Handler\SyslogHandler('papertrail');
-    $formatter = new \Monolog\Formatter\LineFormatter('%channel%.%level_name%: %message% %extra%');
-    $syslog->setFormatter($formatter);
-
-    $monolog->pushHandler($syslog);
-}
-
 $kernel   = new Kernel((string) $environment, !$environment->isProduction());
 $request  = Request::createFromGlobals();
 $response = $kernel->handle($request);
