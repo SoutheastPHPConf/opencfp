@@ -73,6 +73,6 @@
         ]
     },
     "scripts": {
-        "cache": "bin/console cache:clear",
+        "cache": "bin/console cache:clear"
     }
 }
