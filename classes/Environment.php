@@ -84,7 +84,7 @@ class Environment
      */
     public static function fromServer(array $server): self
     {
-        $type = $server['CFP_ENV'] ?? self::TYPE_PRODUCTION;
+        $type = $server['CFP_ENV'] ?? self::TYPE_DEVELOPMENT;
 
         return new self($type);
     }

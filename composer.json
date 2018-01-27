@@ -71,5 +71,8 @@
         "files": [
             "tests/helpers.php"
         ]
+    },
+    "scripts": {
+        "cache": "bin/console cache:clear",
     }
 }
